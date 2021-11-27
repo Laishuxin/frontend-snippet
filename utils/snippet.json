@@ -1,15 +1,11 @@
 {
   "sutils:isDef": {
     "prefix": "sutils:isDef",
-    "body": [
-      "export const isDef = v => v !== null && v !== undefined"
-    ]
+    "body": ["export const isDef = v => v !== null && v !== undefined"]
   },
   "sutils:isUndef": {
     "prefix": "sutils:isUndef",
-    "body": [
-      "export const isUndef = v => v === null || v === undefined"
-    ]
+    "body": ["export const isUndef = v => v === null || v === undefined"]
   },
   "sutils:isVoid": {
     "prefix": "sutils:isVoid",
@@ -25,9 +21,7 @@
   },
   "sutils:isObject": {
     "prefix": "sutils:isObject",
-    "body": [
-      "export const isObject = v => typeof v === 'object' && v !== null"
-    ]
+    "body": ["export const isObject = v => typeof v === 'object' && v !== null"]
   },
   "sutils:isNumber": {
     "prefix": "sutils:isNumber",
