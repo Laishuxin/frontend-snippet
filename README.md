@@ -15,7 +15,8 @@
 
 ## Utils
 
-[前端工具库，与框架无关](./utils/README.md)。
+- [前端工具库 - 与框架无关](./utils/README.md)。
+- [前端工具库 - Vscode Snippet](./utils/snippet.json)
 
 vscode 生成文档的 snippet:
 

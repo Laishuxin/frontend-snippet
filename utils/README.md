@@ -324,9 +324,251 @@ export const isEmail = val => emailRE.test(val)
 }
 ```
 
-### 格式化
+### format
 
-### 其他
+##### `toNumber`:
+
+1. Examples
+
+```js
+toNumber('1') // 1
+toNumber('aa') // 'aa'
+```
+
+2. code
+
+```js
+export const toNumber = v => {
+  const n = parseFloat(v)
+  return isNaN(n) ? v : n
+}
+```
+
+3. vscode snippet
+
+```json
+{
+  "sutils:toNumber": {
+    "prefix": "sutils:toNumber",
+    "body": [
+      "export const toNumber = v => {",
+      "\tconst n = parseFloat(v)",
+      "\treturn isNaN(n) ? v : n",
+      "}"
+    ]
+  }
+}
+```
+
+##### `clear`:
+
+1. Examples
+
+```js
+clearVoidValue({ a: 'a', b: 'b', c: '' }) // {a: 'a', b: 'b'}
+clearUhDefValue({ a: 'a', b: 'b', c: '', d: null }) // {a: 'a', b: 'b', c: ''}
+```
+
+2. code
+
+```js
+// export const isObject = v => typeof v === 'object' && v !== null
+/**
+ * Clear value by resolver and keys.
+ * @param { object } o
+ * @param { (val: any) => boolean } resolver
+ * @returns { object } Cleared object.
+ */
+export const clear = (o, resolver) => {
+  if (!isObject(o)) {
+    return {}
+  }
+
+  const keys = Object.keys(o)
+  const res = { ...o }
+
+  keys.forEach(key => {
+    if (_hasOwnProperty.call(res, key) && resolver(res[key])) {
+      delete res[key]
+    }
+  })
+
+  return res
+}
+export const clearVoidValue = o => clear(o, isVoid)
+export const clearUndefValue = o => clear(o, isUndef)
+```
+
+3. vscode snippet
+
+```json
+{
+  "sutils:clear": {
+    "prefix": "sutils:clear",
+    "body": [
+      "// export const isObject = v => typeof v === 'object' && v !== null",
+      "/**",
+      " * Clear value by resolver and keys.",
+      " * @param { object } o",
+      " * @param { (val: any) => boolean } resolver",
+      " * @returns { object } Cleared object.",
+      " */",
+      "export const clear = (o, resolver) => {",
+      "\tif (!isObject(o)) {",
+      "    return {}",
+      "\t}",
+      "",
+      "\tconst keys = Object.keys(o)",
+      "\tconst res = { ...o }",
+      "",
+      "\tkeys.forEach(key => {",
+      "\t\tif (_hasOwnProperty.call(res, key) && resolver(res[key])) {",
+      "\t\t\tdelete res[key]",
+      "\t\t}",
+      "\t})",
+      "",
+      "\treturn res",
+      "}",
+      "export const clearVoidValue = o => clear(o, isVoid)",
+      "export const clearUndefValue = o => clear(o, isUndef)"
+    ]
+  }
+}
+```
+
+##### `pick`:
+
+1. Examples
+
+```js
+pick({ a: 'a', b: 'b' }, ['a']) // {a: 'a'}
+pick({ a: 'a', b: 'b', c: 'c' }, ['a', 'c']) // {a: 'a', c: 'c'}
+```
+
+2. code
+
+```js
+// export const isObject = v => typeof v === 'object' && v !== null
+/**
+ * Pick value by keys.
+ * @param { object } o
+ * @param { string[] } keys
+ * @returns { object } New object.
+ */
+export const pick = (o, keys) =>
+  isObject(o)
+    ? keys.reduce((res, key) => {
+        res[key] = o[key]
+        return res
+      }, {})
+    : {}
+```
+
+3. vscode snippet
+
+```json
+{
+  "sutils:pick": {
+    "prefix": "sutils:pick",
+    "body": [
+      "// export const isObject = v => typeof v === 'object' && v !== null",
+      "/**",
+      " * Pick value by keys.",
+      " * @param { object } o",
+      " * @param { string[] } keys",
+      " * @returns { object } New object.",
+      " */",
+      "export const pick = (o, keys) =>",
+      "\tisObject(o)",
+      "\t\t? keys.reduce((res, key) => {",
+      "\t\t\t\tres[key] = o[key]",
+      "\t\t\t\treturn res",
+      "\t\t\t}, {})",
+      "\t\t: {}"
+    ]
+  }
+}
+```
+
+##### `camelize`:
+
+1. Examples
+
+```js
+camelize('aaa-bb') // aaaBb
+camelize('aaa-bb-ccc') // aaaBbCcc
+```
+
+2. code
+
+```js
+/**
+ * Camelize a hyphen-delimited string.
+ */
+const camelizeRE = /-(\w)/g
+export const camelize = str =>
+  str.replace(camelizeRE, (_, c) => (c ? c.toUpperCase() : ''))
+
+export const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1)
+```
+
+3. vscode snippet
+
+```json
+{
+  "sutils:camelize": {
+    "prefix": "sutils:camelize",
+    "body": [
+      "/**",
+      " * Camelize a hyphen-delimited string.",
+      " */",
+      "const camelizeRE = /-(w)/g",
+      "export const camelize = str =>",
+      "\tstr.replace(camelizeRE, (_, c) => (c ? c.toUpperCase() : ''))",
+      "",
+      "export const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1)"
+    ]
+  }
+}
+```
+
+##### `hyphenate`:
+
+1. Examples
+
+```js
+hyphenate('aaBbb') // aa-bbb
+hyphenate('aaBbbCcc') // aa-bbb-ccc
+```
+
+2. code
+
+```js
+/**
+ * Hyphenate a camelCase string.
+ */
+const hyphenateRE = /\B([A-Z])/g
+export const hyphenate = str => str.replace(hyphenateRE, '-$1').toLowerCase()
+```
+
+3. vscode snippet
+
+```json
+{
+  "sutils:hyphenate": {
+    "prefix": "sutils:hyphenate",
+    "body": [
+      "/**",
+      " * Hyphenate a camelCase string.",
+      " */",
+      "const hyphenateRE = /B([A-Z])/g",
+      "export const hyphenate = str => str.replace(hyphenateRE, '-$1').toLowerCase()"
+    ]
+  }
+}
+```
+
+### other
 
 ## References
 
