@@ -2,52 +2,24 @@
   "name": "frontend-snippet",
   "author": "Laishuxin",
   "version": "1.9.0",
+  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite build && vite preview",
     "format": "prettier --write .",
-    "prepare": "husky install",
-    "start": "yarn dev & wait-on tcp:3000 -v",
-    "test": "cypress open",
-    "test-components": "cypress open-ct",
-    "test:ci": "cypress run --headless",
-    "test:ci-components": "cypress run-ct"
+    "prepare": "husky install"
   },
-  "dependencies": {
-    "@vueuse/head": "~0.6",
-    "vue": "~3.2",
-    "vue-router": "~4.0",
-    "vuex": "~4.0"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@cypress/vite-dev-server": "~2.2",
-    "@cypress/vue": "~3.0",
-    "@tailwindcss/aspect-ratio": "~0.3",
-    "@tailwindcss/forms": "~0.3",
-    "@tailwindcss/line-clamp": "~0.2",
-    "@tailwindcss/typography": "~0.4",
-    "@typescript-eslint/eslint-plugin": "~5",
-    "@typescript-eslint/parser": "~5",
-    "@vitejs/plugin-vue": "~1.9",
-    "@vue/eslint-config-standard": "~6.1",
-    "@vue/eslint-config-typescript": "~8",
     "autoprefixer": "~10",
-    "cypress": "~8.7",
     "eslint": "~8.1",
     "eslint-config-prettier": "~8.3",
     "eslint-plugin-import": "~2",
     "eslint-plugin-node": "~11.1",
     "eslint-plugin-promise": "~5.1",
-    "eslint-plugin-vue": "~7",
     "postcss": "~8.3",
     "postcss-nesting": "~9",
     "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
-    "tailwindcss": "~2.2",
-    "typescript": "~4.4",
-    "vite": "~2.6",
-    "wait-on": "~6.0"
+    "typescript": "~4.4"
   },
   "lint-staged": {
     "*.{js,ts,vue,md,css,scss,less}": "yarn format"
