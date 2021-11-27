@@ -1,50 +1,67 @@
-# Vite + Vue 3 + Typescript + Tailwind Starter
+# Frontend Snippet
 
-Simple, opinionated, **fully typed**, and **production-ready** project template for Vite.
+本仓库的目的是构建前端常用的代码片段。社区已经有许多优秀的前端代码片段
+而且也支持 tree-shaking。但是，有时候我们并不想引入他们。
 
-![Editor screenshot](src/assets/editor_screenshot.png)
+所以这里提供了常用的前端**代码片段**，而且提供了 **Vscode Snippet** 功能以及标准化
+的命名规则，方便在日常开发使用对应的 Snippet.
 
-This template is **practical** and **batteries included** but not overly complex or bloated. Also explicit configuration over magic; it should be easy to understand how everything works, strip out anything you don't need, and fast to modify things to your needs.
+命名规则如下：
+`s大分类:代码片段名`。(s: Snippet)
 
-Includes plenty of **examples and documentation** of how to do things but **minimal cruft** to delete to get you going.
+例如： `sutils:isDef` 表示 `Utils` 下的 `isDef` 函数代码片段。
 
-Please [check out the homepage](https://vite-ts-tailwind-starter.vercel.app/) for full docs. A [detailed changelog](./CHANGES.md) is available. This repository is also [mirrored on GitLab](https://gitlab.com/uninen/vite-ts-tailwind-starter).
+（不用考虑 Vscode Snippet 命名过长的问题， 在 Vscode 中，我们其实可以输入 keyword 就能联想出对应的 Snippet。但是如果命名规则太多，需要记忆的规则会占用太多的精力。）
 
-## Features
+## Utils
 
-- Vue 3
-- **Fully typed** [Vuex 4](https://next.vuex.vuejs.org/) store
-- Routing using [vue-router 4](https://next.router.vuejs.org/)
-- TypeScript 4.4
-- Tailwind CSS 2.2 w/ JIT compiler + following plugins preinstalled
-  - `@tailwindcss/aspect-ratio`
-  - `@tailwindcss/line-clamp`
-  - `@tailwindcss/typography`
-  - `@tailwindcss/forms`
-  - `firefox`-variant
-- PostCSS 8 w/ `postcss-nesting` plugin
-- Eslint
-- Prettier
-- Alias `@` to `<project_root>/src`
-- Manually configured global components in `main.ts`
-- Predefined and fully typed global variables:
-  - `VITE_APP_VERSION` is read from `package.json` version at build time
-  - `VITE_APP_BUILD_EPOCH` is populated as `new Date().getTime()` at build time
-- Using newest `script setup` syntax w/ Ref sugar (see the official [Script Setup documentation](https://v3.vuejs.org/api/sfc-script-setup.html) and [Ref Sugar RFC](https://github.com/vuejs/rfcs/discussions/369) discussion)
-- Cypress.io e2e tests (configured similarly to `vue-cli`)
-- Cypress.io component tests
-- GitHub workflows
-  - Dependabot
-  - Automated e2e tests
-  - Automated component tests
-- GitLab CI
-  - Automated e2e tests
-  - Automated component tests 
-## Elsewhere
+[前端工具库，与框架无关](./utils/README.md)。
 
-- Read my continuously updating learnings from Vite / Vue / TypeScript and other Web development topics from my [Today I Learned site](https://til.unessa.net/)
-- [Follow @uninen](https://twitter.com/uninen) on Twitter
+vscode 生成文档的 snippet:
 
-## Contributing
+````json
+{
+  "sutils": {
+    "prefix": "sutils",
+    "body": [
+      "##### `${1:utils-name}`:",
+      "",
+      "1. Examples",
+      "",
+      "```js",
+      "${1:utils-name}()$0",
+      "```",
+      "",
+      "2. code",
+      "",
+      "```js",
+      "",
+      "```",
+      "",
+      "3. vscode snippet",
+      "",
+      "```json",
+      "{",
+      "\t\"sutils:${1:utils-name}\": {",
+      "\t\t\"prefix\": \"sutils:${1:utils-name}\",",
+      "\t\t\"body\": []",
+      "\t}",
+      "}",
+      "```",
+      "",
+      "---",
+      ""
+    ]
+  }
+}
+````
 
-Contributions are welcome! Please follow the [code of conduct](https://www.contributor-covenant.org/version/2/0/code_of_conduct/) when interacting with others.
+## Vue
+
+### Vue2
+
+[Vue2 相关的工具。例如：mixins 等](./vue/vue2/README.md)
+
+<!-- ### Vue3 -->
+
+## Nuxt
