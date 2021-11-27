@@ -1,0 +1,151 @@
+{
+  "sutils:isDef": {
+    "prefix": "sutils:isDef",
+    "body": [
+      "export const isDef = v => v !== null && v !== undefined"
+    ]
+  },
+  "sutils:isUndef": {
+    "prefix": "sutils:isUndef",
+    "body": [
+      "export const isUndef = v => v === null || v === undefined"
+    ]
+  },
+  "sutils:isVoid": {
+    "prefix": "sutils:isVoid",
+    "body": [
+      "export const isVoid = v => v === null || v === undefined || v === ''"
+    ]
+  },
+  "sutils:isNotVoid": {
+    "prefix": "sutils:isNotVoid",
+    "body": [
+      "export const isVoid = v => v === null || v === undefined || v === ''"
+    ]
+  },
+  "sutils:isObject": {
+    "prefix": "sutils:isObject",
+    "body": [
+      "export const isObject = v => typeof v === 'object' && v !== null"
+    ]
+  },
+  "sutils:isNumber": {
+    "prefix": "sutils:isNumber",
+    "body": [
+      "export const isNumber = v => typeof v === 'number' || !isNaN(parseInt(v))"
+    ]
+  },
+  "sutils:isPlainObject": {
+    "prefix": "sutils:isPlainObject",
+    "body": [
+      "const _toString = Object.prototype.toString",
+      "export const isPlainObject = v => _toString.call(v) === '[object Object]'"
+    ]
+  },
+  "sutils:isRegExp": {
+    "prefix": "sutils:isRegExp",
+    "body": [
+      "const _toString = Object.prototype.toString",
+      "export const isRegExp = v => _toString.call(v) === '[object RegExp]'"
+    ]
+  },
+  "sutils:isPromise": {
+    "prefix": "sutils:isPromise",
+    "body": [
+      "export const isPromise = v =>",
+      "\tisDef(v) && typeof v.then === 'function' && typeof v.catch === 'function'"
+    ]
+  },
+  "sutils:isEmptyObject": {
+    "prefix": "sutils:isEmptyObject",
+    "body": []
+  },
+  "sutils:isEmail": {
+    "prefix": "sutils:isEmail",
+    "body": [
+      "const emailRE = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*$/",
+      "export const isEmail = val => emailRE.test(val)"
+    ]
+  },
+  "sutils:toNumber": {
+    "prefix": "sutils:toNumber",
+    "body": [
+      "export const toNumber = v => {",
+      "\tconst n = parseFloat(v)",
+      "\treturn isNaN(n) ? v : n",
+      "}"
+    ]
+  },
+  "sutils:clear": {
+    "prefix": "sutils:clear",
+    "body": [
+      "// export const isObject = v => typeof v === 'object' && v !== null",
+      "/**",
+      " * Clear value by resolver and keys.",
+      " * @param { object } o",
+      " * @param { (val: any) => boolean } resolver",
+      " * @returns { object } Cleared object.",
+      " */",
+      "export const clear = (o, resolver) => {",
+      "\tif (!isObject(o)) {",
+      "    return {}",
+      "\t}",
+      "",
+      "\tconst keys = Object.keys(o)",
+      "\tconst res = { ...o }",
+      "",
+      "\tkeys.forEach(key => {",
+      "\t\tif (_hasOwnProperty.call(res, key) && resolver(res[key])) {",
+      "\t\t\tdelete res[key]",
+      "\t\t}",
+      "\t})",
+      "",
+      "\treturn res",
+      "}",
+      "export const clearVoidValue = o => clear(o, isVoid)",
+      "export const clearUndefValue = o => clear(o, isUndef)"
+    ]
+  },
+  "sutils:pick": {
+    "prefix": "sutils:pick",
+    "body": [
+      "// export const isObject = v => typeof v === 'object' && v !== null",
+      "/**",
+      " * Pick value by keys.",
+      " * @param { object } o",
+      " * @param { string[] } keys",
+      " * @returns { object } New object.",
+      " */",
+      "export const pick = (o, keys) =>",
+      "\tisObject(o)",
+      "\t\t? keys.reduce((res, key) => {",
+      "\t\t\t\tres[key] = o[key]",
+      "\t\t\t\treturn res",
+      "\t\t\t}, {})",
+      "\t\t: {}"
+    ]
+  },
+  "sutils:camelize": {
+    "prefix": "sutils:camelize",
+    "body": [
+      "/**",
+      " * Camelize a hyphen-delimited string.",
+      " */",
+      "const camelizeRE = /-(w)/g",
+      "export const camelize = str =>",
+      "\tstr.replace(camelizeRE, (_, c) => (c ? c.toUpperCase() : ''))",
+      "",
+      "export const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1)"
+    ]
+  },
+  "sutils:hyphenate": {
+    "prefix": "sutils:hyphenate",
+    "body": [
+      "/**",
+      " * Hyphenate a camelCase string.",
+      " */",
+      "const hyphenateRE = /B([A-Z])/g",
+      "export const hyphenate = str => str.replace(hyphenateRE, '-$1').toLowerCase()"
+    ]
+  }
+}
